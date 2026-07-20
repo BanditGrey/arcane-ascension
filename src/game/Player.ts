@@ -166,6 +166,35 @@ export class Player {
       ctx.drawImage(staffSprite, this.x + 14, this.y + bob - 48, 18, 55);
     }
 
+    // === EFEITOS ESPECIAIS PARA CAJADOS LENDÁRIOS E ACIMA ===
+    const weapon = this.equipment.equipped.weapon;
+    if (weapon) {
+      const name = weapon.name.toLowerCase();
+      const isLegendary = weapon.rarity === 'Lendário' || weapon.rarity === 'Mítico' || weapon.rarity === 'Ancestral';
+
+      if (isLegendary) {
+        // Efeito de partículas especiais por tipo de cajado lendário
+        if (Math.random() < 0.4) {
+          let color = '#aaccff';
+          let count = 3;
+
+          if (name.includes('vazio') || name.includes('void')) {
+            color = '#6600aa';
+            count = 5;
+          }
+          if (name.includes('cristal') || name.includes('crystal')) {
+            color = '#ff66ee';
+            count = 4;
+          }
+          if (name.includes('arco') || name.includes('arcane')) {
+            color = '#cc88ff';
+          }
+
+          this.particles.emit(this.x + 22, this.y - 28, count, color, 2.2);
+        }
+      }
+    }
+
     // Partículas
     this.particles.render(ctx);
 
