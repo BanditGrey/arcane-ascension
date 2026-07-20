@@ -20,6 +20,7 @@ export class Player {
   maxMana: number = 220;
   level: number = 1;
   experience: number = 0;
+  experienceToLevel: number = 100;
 
   // Bônus de Aparência
   spellDamageMultiplier: number = 1;
@@ -177,6 +178,25 @@ export class Player {
   // Retorna os bônus permanentes da aparência atual
   getAppearanceBonuses() {
     return this.appearance.getTotalBonuses(this.level);
+  }
+
+  gainExperience(amount: number) {
+    this.experience += amount;
+
+    while (this.experience >= this.experienceToLevel) {
+      this.levelUp();
+    }
+  }
+
+  levelUp() {
+    this.experience -= this.experienceToLevel;
+    this.level++;
+    this.experienceToLevel = Math.floor(this.experienceToLevel * 1.35);
+
+    // Aplica bônus de aparência ao subir de nível
+    this.applyAppearanceBonuses();
+
+    console.log(`%c[Level Up] Você alcançou o nível ${this.level}!`, 'color:#ffdd44; font-weight:bold');
   }
 
   // Aplica bônus da aparência nos status base

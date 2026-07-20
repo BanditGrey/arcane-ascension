@@ -123,7 +123,7 @@ export class Game {
           p.alive = false;
           this.particleSystem.emit(p.x, p.y, 14, '#ff6600', 5);
           if (enemy.hp <= 0) {
-            this.player.experience += 22;
+            this.player.gainExperience(22);
             this.player.proficiencies.gainProficiency('Fire Magic', 0.7);
             this.particleSystem.emit(enemy.x, enemy.y, 25, '#aa3344', 6);
           }
