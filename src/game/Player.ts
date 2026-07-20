@@ -9,6 +9,8 @@ import { EquipmentSystem } from '../systems/EquipmentSystem';
 import { AssetLoader } from '../assets/AssetLoader';
 import { StaffRenderer } from './StaffRenderer';
 import { AppearanceSystem } from '../systems/AppearanceSystem';
+import { OfflineProgress } from '../systems/OfflineProgress';
+import { PhaseSystem } from '../systems/PhaseSystem';
 
 export class Player {
   x: number = 400;
@@ -33,6 +35,8 @@ export class Player {
   skillTree = new SkillTree();
   equipment = new EquipmentSystem();
   appearance = new AppearanceSystem();
+  offline = new OfflineProgress();
+  phases = new PhaseSystem();
 
   lastSpellTime: Record<string, number> = {};
   animationFrame: number = 0;
