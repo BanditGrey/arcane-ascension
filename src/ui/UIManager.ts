@@ -7,6 +7,17 @@ export class UIManager {
     hp.textContent = Math.floor(player.hp).toString();
     mp.textContent = Math.floor(player.mana).toString();
     level.textContent = player.level.toString();
+
+    // Mostra bônus de Aparência (se existir)
+    const bonuses = player.getAppearanceBonuses?.();
+    if (bonuses && Object.keys(bonuses).length > 0) {
+      const bonusEl = document.getElementById('appearance-bonus');
+      if (bonusEl) {
+        bonusEl.innerHTML = Object.entries(bonuses)
+          .map(([stat, value]) => `+${value} ${stat}`)
+          .join('<br>');
+      }
+    }
   }
 
   static showInventory(inventory: any) {
