@@ -97,22 +97,24 @@ export class Player {
 
   // === SISTEMA DE EQUIPAMENTO DE CAJADOS ===
   equipStaff(staffId: string) {
-    const staff = this.inventory.items.find(i => i.id === staffId);
-    if (staff) {
-      this.equipment.equip(staff as any);
-      console.log(`%c[Cajado] Equipado: ${staff.name}`, 'color:#ffaa33');
-    } else {
-      // Equipamento de teste (caso não exista no inventário)
-      const testStaffs: any = {
-        'staff_basic': { id: 'staff_basic', name: 'Cajado de Aprendiz', type: 'Cajado', rarity: 'Comum', stats: {} },
-        'staff_fire': { id: 'staff_fire', name: 'Cajado Flamejante', type: 'Cajado', rarity: 'Raro', stats: { 'fire damage': 14 } },
-        'staff_arcane': { id: 'staff_arcane', name: 'Cajado Arcano', type: 'Cajado', rarity: 'Épico', stats: {} },
-        'staff_void': { id: 'staff_void', name: 'Cajado do Vazio', type: 'Cajado', rarity: 'Lendário', stats: {} },
-      };
-      if (testStaffs[staffId]) {
-        this.equipment.equip(testStaffs[staffId]);
-        console.log(`%c[Cajado] Equipado (teste): ${testStaffs[staffId].name}`, 'color:#ffaa33');
-      }
+    const testStaffs: any = {
+      'staff_basic':   { id: 'staff_basic', name: 'Cajado de Aprendiz', type: 'Cajado', rarity: 'Comum', stats: {} },
+      'staff_fire':    { id: 'staff_fire', name: 'Cajado Flamejante', type: 'Cajado', rarity: 'Raro', stats: { 'fire damage': 14 } },
+      'staff_ice':     { id: 'staff_ice', name: 'Cajado Congelante', type: 'Cajado', rarity: 'Raro', stats: { 'ice damage': 12 } },
+      'staff_lightning': { id: 'staff_lightning', name: 'Cajado do Raio', type: 'Cajado', rarity: 'Épico', stats: {} },
+      'staff_shadow':  { id: 'staff_shadow', name: 'Cajado Sombrio', type: 'Cajado', rarity: 'Épico', stats: {} },
+      'staff_crystal': { id: 'staff_crystal', name: 'Cajado de Cristal', type: 'Cajado', rarity: 'Lendário', stats: {} },
+      'staff_arcane':  { id: 'staff_arcane', name: 'Cajado Arcano', type: 'Cajado', rarity: 'Épico', stats: {} },
+      'staff_void':    { id: 'staff_void', name: 'Cajado do Vazio', type: 'Cajado', rarity: 'Lendário', stats: {} },
+    };
+
+    const staffData = testStaffs[staffId];
+    if (staffData) {
+      this.equipment.equip(staffData);
+      console.log(`%c[Cajado] Equipado: ${staffData.name}`, 'color:#ffaa33');
+
+      // Efeito visual ao equipar
+      this.particles.emit(this.x, this.y - 20, 18, '#aabbff', 4);
     }
   }
 

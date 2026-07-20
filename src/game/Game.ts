@@ -50,8 +50,10 @@ export class Game {
       // Equipamento de Cajados (teste)
       if (e.key === '5') this.player.equipStaff('staff_basic');
       if (e.key === '6') this.player.equipStaff('staff_fire');
-      if (e.key === '7') this.player.equipStaff('staff_arcane');
-      if (e.key === '8') this.player.equipStaff('staff_void');
+      if (e.key === '7') this.player.equipStaff('staff_ice');
+      if (e.key === '8') this.player.equipStaff('staff_lightning');
+      if (e.key === '9') this.player.equipStaff('staff_shadow');
+      if (e.key === '0') this.player.equipStaff('staff_crystal');
       
       // Save / Load
       if (e.key.toLowerCase() === 'k') SaveSystem.save(this.player);
@@ -168,6 +170,6 @@ export class Game {
     this.ctx.fillRect(480, 660, 320, 50);
     this.ctx.fillStyle = '#fff';
     this.ctx.font = '14px Arial';
-    this.ctx.fillText(`1: Bola de Fogo  |  2: Gelo  |  3: Raio  |  4: Sombra`, 490, 692);
+    this.ctx.fillText(`1-4: Magias  |  5-0: Cajados (Basic/Fire/Ice/Lightning/Shadow/Crystal)`, 470, 692);
   }
 }

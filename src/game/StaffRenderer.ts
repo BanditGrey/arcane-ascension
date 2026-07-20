@@ -11,15 +11,13 @@ export class StaffRenderer {
 
     const name = weapon.name.toLowerCase();
 
-    if (name.includes('fogo') || name.includes('fire')) {
-      return AssetLoader.get('/assets/sprites/Weapons/staff_fire.png');
-    }
-    if (name.includes('arcano') || name.includes('arcane')) {
-      return AssetLoader.get('/assets/sprites/Weapons/staff_arcane.png');
-    }
-    if (name.includes('vazio') || name.includes('void')) {
-      return AssetLoader.get('/assets/sprites/Weapons/staff_void.png');
-    }
+    if (name.includes('fogo') || name.includes('fire')) return AssetLoader.get('/assets/sprites/Weapons/staff_fire.png');
+    if (name.includes('gelo') || name.includes('ice')) return AssetLoader.get('/assets/sprites/Weapons/staff_ice.png');
+    if (name.includes('raio') || name.includes('lightning')) return AssetLoader.get('/assets/sprites/Weapons/staff_lightning.png');
+    if (name.includes('sombra') || name.includes('shadow')) return AssetLoader.get('/assets/sprites/Weapons/staff_shadow.png');
+    if (name.includes('cristal') || name.includes('crystal')) return AssetLoader.get('/assets/sprites/Weapons/staff_crystal.png');
+    if (name.includes('arcano') || name.includes('arcane')) return AssetLoader.get('/assets/sprites/Weapons/staff_arcane.png');
+    if (name.includes('vazio') || name.includes('void')) return AssetLoader.get('/assets/sprites/Weapons/staff_void.png');
 
     return AssetLoader.get('/assets/sprites/Weapons/staff_basic.png');
   }

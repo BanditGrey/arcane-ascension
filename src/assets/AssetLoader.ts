@@ -50,6 +50,10 @@ export class AssetLoader {
       // Cajados
       '/assets/sprites/Weapons/staff_basic.png',
       '/assets/sprites/Weapons/staff_fire.png',
+      '/assets/sprites/Weapons/staff_ice.png',
+      '/assets/sprites/Weapons/staff_lightning.png',
+      '/assets/sprites/Weapons/staff_shadow.png',
+      '/assets/sprites/Weapons/staff_crystal.png',
       '/assets/sprites/Weapons/staff_arcane.png',
       '/assets/sprites/Weapons/staff_void.png',
     ];
