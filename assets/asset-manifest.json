@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "mage": {
+    "base": "sprites/Mage/archmage.png",
+    "animations": {
+      "idle_south": { "frames": 10, "speed": 120 },
+      "walk_south": { "frames": 14, "speed": 90 },
+      "cast_south": { "frames": 22, "speed": 70 },
+      "ultimate": { "frames": 48, "speed": 50 }
+    }
+  },
+  "projectiles": {
+    "fireball": "sprites/Projectiles/fireball.png",
+    "icebolt": "sprites/Projectiles/icebolt.png",
+    "lightning": "sprites/Projectiles/lightning.png"
+  },
+  "effects": {
+    "explosion_fire": "sprites/Effects/explosion_fire.png",
+    "impact_ice": "sprites/Effects/impact_ice.png",
+    "aura_arcane": "sprites/Effects/aura_arcane.png"
+  },
+  "ui": {
+    "inventory_bg": "ui/inventory.png",
+    "skill_tree": "ui/skilltree.png",
+    "health_bar": "ui/healthbar.png"
+  }
+}
