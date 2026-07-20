@@ -21,11 +21,17 @@ export class AssetLoader {
 
   static async preloadAll() {
     const manifest = [
-      // Evolução do Mago por idade
+      // Evolução do Mago por idade (Idle)
       '/assets/sprites/Mage/mage_young.png',
       '/assets/sprites/Mage/mage_adult.png',
       '/assets/sprites/Mage/mage_veteran.png',
       '/assets/sprites/Mage/mage_elder.png',
+
+      // Evolução do Mago por idade (Cast)
+      '/assets/sprites/Mage/mage_young_cast.png',
+      '/assets/sprites/Mage/mage_adult_cast.png',
+      '/assets/sprites/Mage/mage_veteran_cast.png',
+      '/assets/sprites/Mage/mage_elder_cast.png',
       
       // Animações antigas (manter compatibilidade)
       '/assets/sprites/Mage/archmage_idle_front.png',

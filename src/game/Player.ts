@@ -8,6 +8,7 @@ import { SkillTree } from '../systems/SkillTree';
 import { EquipmentSystem } from '../systems/EquipmentSystem';
 import { AssetLoader } from '../assets/AssetLoader';
 import { StaffRenderer } from './StaffRenderer';
+import { AppearanceSystem } from '../systems/AppearanceSystem';
 
 export class Player {
   x: number = 400;
@@ -26,6 +27,7 @@ export class Player {
   particles = new ParticleSystem();
   skillTree = new SkillTree();
   equipment = new EquipmentSystem();
+  appearance = new AppearanceSystem();
 
   lastSpellTime: Record<string, number> = {};
   animationFrame: number = 0;
@@ -141,14 +143,33 @@ export class Player {
     const level = this.level;
 
     if (level >= 60) {
-      return AssetLoader.get('/assets/sprites/Mage/mage_elder.png');      // Ancião lendário
+      return AssetLoader.get('/assets/sprites/Mage/mage_elder.png');
     } else if (level >= 35) {
-      return AssetLoader.get('/assets/sprites/Mage/mage_veteran.png');   // Veterano
+      return AssetLoader.get('/assets/sprites/Mage/mage_veteran.png');
     } else if (level >= 15) {
-      return AssetLoader.get('/assets/sprites/Mage/mage_adult.png');     // Adulto
+      return AssetLoader.get('/assets/sprites/Mage/mage_adult.png');
     } else {
-      return AssetLoader.get('/assets/sprites/Mage/mage_young.png');     // Jovem Aprendiz
+      return AssetLoader.get('/assets/sprites/Mage/mage_young.png');
     }
+  }
+
+  getMageCastSprite() {
+    const level = this.level;
+
+    if (level >= 60) {
+      return AssetLoader.get('/assets/sprites/Mage/mage_elder_cast.png');
+    } else if (level >= 35) {
+      return AssetLoader.get('/assets/sprites/Mage/mage_veteran_cast.png');
+    } else if (level >= 15) {
+      return AssetLoader.get('/assets/sprites/Mage/mage_adult_cast.png');
+    } else {
+      return AssetLoader.get('/assets/sprites/Mage/mage_young_cast.png');
+    }
+  }
+
+  // Retorna os bônus permanentes da aparência atual
+  getAppearanceBonuses() {
+    return this.appearance.getTotalBonuses(this.level);
   }
 
   render(ctx: CanvasRenderingContext2D) {
@@ -166,9 +187,12 @@ export class Player {
     ctx.restore();
 
     const bob = this.state === 'walk' ? Math.sin(this.animationFrame * 0.6) * 2.5 : 0;
+    const castSprite = this.getMageCastSprite();
 
     // Desenha o sprite de acordo com o nível do mago
-    if (currentSprite) {
+    if (this.state === 'cast' && castSprite) {
+      ctx.drawImage(castSprite, this.x - 30, this.y + bob - 45, 60, 78);
+    } else if (currentSprite) {
       ctx.drawImage(currentSprite, this.x - 30, this.y + bob - 45, 60, 78);
     } else {
       // Fallback
