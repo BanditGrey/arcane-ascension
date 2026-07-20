@@ -1,17 +1,29 @@
-import { equipments } from '../data/equipment';
+import { EventBus } from '../core/EventBus';
+
+export interface LootItem {
+  id: string;
+  name: string;
+  rarity: string;
+  quantity: number;
+}
 
 export class LootSystem {
-  static generateLoot(floor: number) {
-    const loot = [];
-    const chance = 0.35 + (floor * 0.01);
+  generateLoot(phase: number): LootItem | null {
+    const roll = Math.random();
 
-    if (Math.random() < chance) {
-      const index = Math.floor(Math.random() * equipments.length);
-      loot.push(equipments[index]);
-    }
-    if (Math.random() < 0.6) {
-      loot.push({ id: 'gold', name: 'Ouro', quantity: 50 + floor * 8 });
-    }
-    return loot;
+    let rarity = 'Comum';
+    if (roll > 0.95) rarity = 'Épico';
+    else if (roll > 0.80) rarity = 'Raro';
+    else if (roll > 0.50) rarity = 'Incomum';
+
+    const item: LootItem = {
+      id: `item_${Date.now()}`,
+      name: `Item ${rarity} Fase ${phase}`,
+      rarity: rarity,
+      quantity: 1
+    };
+
+    EventBus.emit('loot:generated', item);
+    return item;
   }
 }

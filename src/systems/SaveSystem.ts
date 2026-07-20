@@ -1,34 +1,21 @@
+import { EventBus } from '../core/EventBus';
+
 export class SaveSystem {
-  static save(player: any) {
-    const data = {
-      level: player.level,
-      hp: player.hp,
-      mana: player.mana,
-      experience: player.experience,
-      proficiencies: player.proficiencies.proficiencies,
-      specialization: player.specialization.current,
-      inventory: player.inventory.items,
-      towerFloor: (window as any).currentTowerFloor || 1
-    };
+  static save(data: any) {
     localStorage.setItem('arcane_ascension_save', JSON.stringify(data));
-    console.log('%c[Jogo salvo]', 'color:#44ff88');
+    EventBus.emit('save:completed');
   }
 
-  static load(player: any) {
+  static load() {
     const saved = localStorage.getItem('arcane_ascension_save');
-    if (!saved) return false;
+    if (saved) {
+      EventBus.emit('save:loaded', JSON.parse(saved));
+      return JSON.parse(saved);
+    }
+    return null;
+  }
 
-    const data = JSON.parse(saved);
-    player.level = data.level;
-    player.hp = data.hp;
-    player.mana = data.mana;
-    player.experience = data.experience;
-    player.proficiencies.proficiencies = data.proficiencies;
-    player.specialization.current = data.specialization;
-    player.inventory.items = data.inventory || [];
-    
-    (window as any).currentTowerFloor = data.towerFloor || 1;
-    console.log('%c[Jogo carregado]', 'color:#44ff88');
-    return true;
+  static clear() {
+    localStorage.removeItem('arcane_ascension_save');
   }
 }
