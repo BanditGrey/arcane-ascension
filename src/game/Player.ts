@@ -82,8 +82,26 @@ export class Player {
     this.lastSpellTime[spell.id] = now;
     this.state = 'cast';
 
+    // === EFEITO DE CAST BASEADO NO CAJADO ===
+    const weapon = this.equipment.equipped.weapon;
+    let castColor = spell.projectileColor;
+    let intensity = 12;
+
+    if (weapon) {
+      const name = weapon.name.toLowerCase();
+      const isHighRarity = weapon.rarity === 'Lendário' || weapon.rarity === 'Mítico' || weapon.rarity === 'Ancestral';
+
+      if (name.includes('fogo') || name.includes('fire')) castColor = '#ff5500';
+      else if (name.includes('gelo') || name.includes('ice')) castColor = '#88ddff';
+      else if (name.includes('raio') || name.includes('lightning')) castColor = '#ffff66';
+      else if (name.includes('vazio') || name.includes('void')) castColor = '#aa44ff';
+      else if (name.includes('cristal') || name.includes('crystal')) castColor = '#ff77ee';
+
+      if (isHighRarity) intensity = 20;
+    }
+
     // Efeito visual de cast
-    this.particles.emit(this.x, this.y - 10, 12, spell.projectileColor, 4);
+    this.particles.emit(this.x, this.y - 10, intensity, castColor, 5);
 
     return { targetX, targetY, spell };
   }
