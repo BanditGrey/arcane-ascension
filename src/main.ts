@@ -44,7 +44,13 @@ window.addEventListener('load', async () => {
     });
   });
 
-  // Gerar lista de fases
+  // ==================== INTEGRAÇÃO DOS SISTEMAS ====================
+
+  const upgradeSystem = new UpgradeSystem();
+  const forgeSystem = new ForgeSystem();
+  const prestigeSystem = new PrestigeSystem();
+
+  // Render Fases
   function renderPhases() {
     const container = document.getElementById('phase-list')!;
     container.innerHTML = '';
@@ -55,16 +61,78 @@ window.addEventListener('load', async () => {
         <strong>${phase.name}</strong><br>
         <small>Nível ${phase.levelReq} • ${phase.enemyCount} inimigos</small>
       `;
-      btn.onclick = () => {
-        if (idleGame.startPhase(phase.id)) {
-          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        }
-      };
+      btn.onclick = () => idleGame.startPhase(phase.id);
       container.appendChild(btn);
     });
   }
   renderPhases();
+
+  // Render Upgrades
+  function renderUpgrades() {
+    const container = document.getElementById('upgrades-list')!;
+    container.innerHTML = '';
+
+    upgradeSystem.upgrades.forEach(upgrade => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <strong>${upgrade.name}</strong> (Lv.${upgrade.level})<br>
+        <small>${upgrade.description}</small><br>
+        <button>Custa ${upgrade.cost} Ouro</button>
+      `;
+      div.querySelector('button')!.onclick = () => {
+        if (upgradeSystem.buyUpgrade(upgrade.id, game.player, 9999)) {
+          renderUpgrades();
+        }
+      };
+      container.appendChild(div);
+    });
+  }
+  renderUpgrades();
+
+  // Render Forja
+  function renderForge() {
+    const container = document.getElementById('forge-list')!;
+    container.innerHTML = '';
+
+    forgeRecipes.forEach(recipe => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <strong>${recipe.name}</strong><br>
+        <button>Forjar</button>
+      `;
+      div.querySelector('button')!.onclick = () => {
+        const result = forgeSystem.craft(recipe.id, game.player.inventory);
+        if (result) {
+          alert(`Forjou: ${result.name}`);
+        } else {
+          alert('Materiais insuficientes');
+        }
+      };
+      container.appendChild(div);
+    });
+  }
+  renderForge();
+
+  // Prestige
+  document.getElementById('prestige-btn')!.onclick = () => {
+    if (prestigeSystem.prestige(game.player)) {
+      alert('Você ascendeu!');
+    } else {
+      alert('Nível insuficiente para Prestige');
+    }
+  };
+
+  // Sistema de Abas
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      btn.classList.add('active');
+      const tab = btn.getAttribute('data-tab')!;
+      document.getElementById(`tab-${tab}`)!.classList.add('active');
+    });
+  });
 
   // HUD Loop
   setInterval(() => {

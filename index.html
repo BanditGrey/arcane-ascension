@@ -3,64 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arcane Ascension - Idle RPG</title>
+  <title>Arcane Ascension • Idle RPG</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
   <div id="game-container">
-    <!-- Canvas Principal -->
-    <canvas id="game-canvas" width="1280" height="720"></canvas>
-    
-    <!-- HUD Top -->
-    <div id="hud-top">
-      <div class="stat">Nível <span id="level">1</span></div>
-      <div class="stat">HP <span id="hp">120</span></div>
-      <div class="stat">Mana <span id="mp">220</span></div>
-      <div class="stat" id="appearance-bonus"></div>
+
+    <!-- Top HUD -->
+    <div id="top-hud">
+      <div class="hud-left">
+        <span>Nível <strong id="level">1</strong></span>
+        <span>HP <strong id="hp">120</strong></span>
+        <span>Mana <strong id="mp">220</strong></span>
+      </div>
+      <div class="hud-right">
+        <span id="appearance-bonus"></span>
+      </div>
     </div>
 
-    <!-- Menu Idle Style -->
-    <div id="idle-menu">
-      <div class="menu-tabs">
-        <button class="tab-btn active" data-tab="phases">Fases</button>
-        <button class="tab-btn" data-tab="upgrades">Upgrades</button>
-        <button class="tab-btn" data-tab="inventory">Inventário</button>
-        <button class="tab-btn" data-tab="prestige">Prestige</button>
+    <!-- Main Content -->
+    <div id="main-content">
+
+      <!-- Left Panel: Fases -->
+      <div class="panel">
+        <h3>Fases</h3>
+        <div id="phase-list"></div>
+        <button id="retry-btn" class="action-btn">Tentar Novamente</button>
       </div>
 
-      <!-- Conteúdo das abas -->
-      <div id="tab-content">
-        <!-- Fases -->
-        <div id="tab-phases" class="tab-content active">
-          <h3>Selecionar Fase</h3>
-          <div id="phase-list"></div>
-          <button id="retry-btn">Tentar Fase Atual Novamente</button>
+      <!-- Center: Canvas + Attack -->
+      <div class="center-area">
+        <canvas id="game-canvas" width="700" height="600"></canvas>
+        
+        <div id="attack-area">
+          <button id="attack-btn" class="big-attack-btn">⚔️ Atacar</button>
+        </div>
+      </div>
+
+      <!-- Right Panel: Sistemas -->
+      <div class="panel">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="upgrades">Upgrades</button>
+          <button class="tab-btn" data-tab="forge">Forja</button>
+          <button class="tab-btn" data-tab="prestige">Prestige</button>
         </div>
 
         <!-- Upgrades -->
-        <div id="tab-upgrades" class="tab-content">
-          <h3>Upgrades</h3>
-          <p>Em breve...</p>
+        <div id="tab-upgrades" class="tab-content active">
+          <div id="upgrades-list"></div>
         </div>
 
-        <!-- Inventário -->
-        <div id="tab-inventory" class="tab-content">
-          <h3>Inventário</h3>
-          <div id="inventory-grid"></div>
+        <!-- Forja -->
+        <div id="tab-forge" class="tab-content">
+          <div id="forge-list"></div>
         </div>
 
         <!-- Prestige -->
         <div id="tab-prestige" class="tab-content">
-          <h3>Prestige</h3>
-          <p>Em breve...</p>
+          <button id="prestige-btn" class="action-btn">Ascender (Prestige)</button>
+          <div id="prestige-info"></div>
         </div>
       </div>
+
     </div>
 
-    <!-- Botão de Ataque Principal -->
-    <div id="main-attack">
-      <button id="attack-btn">⚔️ Atacar</button>
-    </div>
   </div>
 
   <script type="module" src="src/main.ts"></script>
