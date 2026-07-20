@@ -6,5 +6,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist'
-  }
+  },
+  // Configuração para GitHub Pages
+  base: '/arcane-ascension/'
 });
