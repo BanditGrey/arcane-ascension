@@ -173,24 +173,38 @@ export class Player {
       const isLegendary = weapon.rarity === 'Lendário' || weapon.rarity === 'Mítico' || weapon.rarity === 'Ancestral';
 
       if (isLegendary) {
-        // Efeito de partículas especiais por tipo de cajado lendário
-        if (Math.random() < 0.4) {
-          let color = '#aaccff';
-          let count = 3;
+        // === EFEITO VOID (Vazio) - Distorção + Partículas escuras ===
+        if (name.includes('vazio') || name.includes('void')) {
+          if (Math.random() < 0.6) {
+            this.particles.emit(this.x + 22, this.y - 25, 5, '#330066', 2.8);
+          }
+          if (Math.random() < 0.3) {
+            this.particles.emit(this.x + 20, this.y - 30, 3, '#110022', 1.5);
+          }
+        }
 
-          if (name.includes('vazio') || name.includes('void')) {
-            color = '#6600aa';
-            count = 5;
+        // === EFEITO CRYSTAL (Cristal) - Cristais flutuando ===
+        else if (name.includes('cristal') || name.includes('crystal')) {
+          if (Math.random() < 0.5) {
+            this.particles.emit(this.x + 25, this.y - 20, 3, '#ff99ff', 1.8);
           }
-          if (name.includes('cristal') || name.includes('crystal')) {
-            color = '#ff66ee';
-            count = 4;
+          if (Math.random() < 0.25) {
+            this.particles.emit(this.x + 18, this.y - 35, 2, '#cc66ff', 2.5);
           }
-          if (name.includes('arco') || name.includes('arcane')) {
-            color = '#cc88ff';
-          }
+        }
 
-          this.particles.emit(this.x + 22, this.y - 28, count, color, 2.2);
+        // === EFEITO ARCANE ===
+        else if (name.includes('arcano') || name.includes('arcane')) {
+          if (Math.random() < 0.45) {
+            this.particles.emit(this.x + 22, this.y - 28, 4, '#bb88ff', 2.4);
+          }
+        }
+
+        // === EFEITO PADRÃO LENDÁRIO ===
+        else {
+          if (Math.random() < 0.35) {
+            this.particles.emit(this.x + 22, this.y - 26, 3, '#aaccff', 2.0);
+          }
         }
       }
     }
