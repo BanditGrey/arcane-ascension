@@ -211,96 +211,45 @@ export class Player {
   render(ctx: CanvasRenderingContext2D) {
     const currentSprite = this.getMageSprite();
 
-    // Aura mágica (fica mais forte com o nível)
-    const auraSize = 30 + Math.min(this.level * 0.4, 25);
+    // Aura mágica mais elegante
+    const auraSize = 32 + Math.min(this.level * 0.35, 28);
     ctx.save();
     ctx.shadowColor = '#6644ff';
-    ctx.shadowBlur = 18 + Math.min(this.level / 4, 15);
-    ctx.fillStyle = 'rgba(102, 68, 255, 0.35)';
+    ctx.shadowBlur = 22 + Math.min(this.level / 3, 18);
+    ctx.fillStyle = 'rgba(102, 68, 255, 0.4)';
     ctx.beginPath();
-    ctx.arc(this.x, this.y - 8, auraSize, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y - 6, auraSize, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
-    const bob = this.state === 'walk' ? Math.sin(this.animationFrame * 0.6) * 2.5 : 0;
+    const bob = this.state === 'walk' ? Math.sin(this.animationFrame * 0.6) * 2 : 0;
     const castSprite = this.getMageCastSprite();
 
-    // Desenha o sprite de acordo com o nível do mago
+    // Desenha o mago
     if (this.state === 'cast' && castSprite) {
-      ctx.drawImage(castSprite, this.x - 30, this.y + bob - 45, 60, 78);
+      ctx.drawImage(castSprite, this.x - 32, this.y + bob - 48, 64, 82);
     } else if (currentSprite) {
-      ctx.drawImage(currentSprite, this.x - 30, this.y + bob - 45, 60, 78);
+      ctx.drawImage(currentSprite, this.x - 32, this.y + bob - 48, 64, 82);
     } else {
-      // Fallback
+      // Fallback simples
       ctx.fillStyle = '#3a1a7a';
       ctx.beginPath();
-      ctx.arc(this.x, this.y + bob, 23, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y + bob, 26, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // === DESENHA O CAJADO DINÂMICO ===
+    // === CAJADO DINÂMICO ===
     const staffSprite = StaffRenderer.getStaffSprite(this.equipment);
     if (staffSprite) {
-      ctx.drawImage(staffSprite, this.x + 14, this.y + bob - 48, 18, 55);
-    }
-
-    // === EFEITOS ESPECIAIS POR RARIDADE DO CAJADO ===
-    const weapon = this.equipment.equipped.weapon;
-    if (weapon) {
-      const name = weapon.name.toLowerCase();
-      const rarity = weapon.rarity;
-
-      // === EFEITOS ANCESTRAIS (o mais épico) ===
-      if (rarity === 'Ancestral') {
-        if (name.includes('vazio') || name.includes('void')) {
-          this.particles.emit(this.x + 22, this.y - 25, 7, '#220044', 3.5);
-          this.particles.emit(this.x + 20, this.y - 32, 4, '#110022', 2.2);
-        } 
-        else if (name.includes('cristal') || name.includes('crystal')) {
-          this.particles.emit(this.x + 25, this.y - 22, 5, '#ff99ff', 2.8);
-          this.particles.emit(this.x + 18, this.y - 38, 3, '#cc66ff', 3.2);
-        } 
-        else {
-          this.particles.emit(this.x + 22, this.y - 26, 6, '#aaccff', 3.0);
-        }
-      }
-
-      // === EFEITOS MÍTICOS ===
-      else if (rarity === 'Mítico') {
-        if (name.includes('vazio') || name.includes('void')) {
-          if (Math.random() < 0.7) this.particles.emit(this.x + 22, this.y - 25, 6, '#330066', 3.2);
-        } 
-        else if (name.includes('cristal') || name.includes('crystal')) {
-          if (Math.random() < 0.6) this.particles.emit(this.x + 25, this.y - 22, 4, '#ff99ff', 2.5);
-        } 
-        else {
-          if (Math.random() < 0.5) this.particles.emit(this.x + 22, this.y - 26, 4, '#aaccff', 2.5);
-        }
-      }
-
-      // === EFEITOS LENDÁRIOS ===
-      else if (rarity === 'Lendário') {
-        if (name.includes('vazio') || name.includes('void')) {
-          if (Math.random() < 0.6) this.particles.emit(this.x + 22, this.y - 25, 5, '#330066', 2.8);
-        } 
-        else if (name.includes('cristal') || name.includes('crystal')) {
-          if (Math.random() < 0.5) this.particles.emit(this.x + 25, this.y - 20, 3, '#ff99ff', 1.8);
-        } 
-        else if (name.includes('arcano') || name.includes('arcane')) {
-          if (Math.random() < 0.45) this.particles.emit(this.x + 22, this.y - 28, 4, '#bb88ff', 2.4);
-        } 
-        else {
-          if (Math.random() < 0.35) this.particles.emit(this.x + 22, this.y - 26, 3, '#aaccff', 2.0);
-        }
-      }
+      ctx.drawImage(staffSprite, this.x + 16, this.y + bob - 50, 20, 60);
     }
 
     // Partículas
     this.particles.render(ctx);
 
-    // Nome
+    // Nome do personagem
     ctx.fillStyle = '#aaccff';
-    ctx.font = '13px Arial';
-    ctx.fillText(this.specialization.current, this.x - 38, this.y - 48);
+    ctx.font = '14px Arial';
+    ctx.fillText(this.specialization.current, this.x - 40, this.y - 55);
   }
 }

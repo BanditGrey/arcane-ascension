@@ -3,87 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arcane Ascension • Idle RPG</title>
+  <title>Arcane Ascension</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <div id="app">
+  <div id="game-app">
 
-    <!-- TOP HUD -->
-    <div id="top-hud">
-      <div class="hud-section left">
-        <div class="stat">Nível <span id="level">1</span></div>
-        <div class="stat">HP <span id="hp">120</span></div>
-        <div class="stat">Mana <span id="mp">220</span></div>
+    <!-- TOP BAR -->
+    <div id="top-bar">
+      <div class="player-info">
+        <div class="avatar"></div>
+        <div>
+          <div class="name">Arquimago</div>
+          <div class="level">Nível <span id="level">1</span></div>
+        </div>
       </div>
-      <div class="hud-section center">
-        <div id="phase-name">Floresta Arcana</div>
+
+      <div class="stats">
+        <div class="stat hp">
+          <span>HP</span>
+          <div class="bar"><div id="hp-bar" style="width: 100%"></div></div>
+          <span id="hp">120 / 120</span>
+        </div>
+        <div class="stat mana">
+          <span>Mana</span>
+          <div class="bar"><div id="mana-bar" style="width: 100%"></div></div>
+          <span id="mana">220 / 220</span>
+        </div>
       </div>
-      <div class="hud-section right">
-        <div id="appearance-bonus"></div>
+
+      <div class="currencies">
+        <div class="currency gold"><span id="gold">12.4M</span></div>
+        <div class="currency crystal"><span id="crystals">85.430</span></div>
+        <div class="currency essence"><span id="essence">3.250</span></div>
+      </div>
+
+      <div class="top-actions">
+        <button class="icon-btn">✉️</button>
+        <button class="icon-btn">👥</button>
+        <button class="icon-btn">🏆</button>
+        <button class="icon-btn">⚙️</button>
       </div>
     </div>
 
-    <!-- MAIN AREA -->
-    <div id="main-area">
+    <!-- MAIN CONTENT -->
+    <div id="main-content">
 
-      <!-- LEFT PANEL: Fases + Progresso -->
-      <div class="side-panel">
-        <h3>Fases</h3>
-        <div id="phase-list"></div>
+      <!-- LEFT PANEL: Fases / Mapa -->
+      <div class="left-panel">
+        <h3>Exploração</h3>
+        <div id="region-list"></div>
+      </div>
+
+      <!-- CENTER: Área Principal do Jogo -->
+      <div class="center-area">
+        <canvas id="game-canvas" width="900" height="620"></canvas>
         
-        <div class="panel-section">
-          <h4>Progresso da Fase</h4>
-          <div class="progress-bar">
-            <div id="phase-progress" style="width: 0%"></div>
+        <div class="combat-hud">
+          <div id="enemy-info" style="display: none;">
+            <span id="enemy-name"></span>
+            <div class="bar"><div id="enemy-hp-bar"></div></div>
           </div>
-          <div id="phase-kills">0 / 10</div>
         </div>
       </div>
 
-      <!-- CENTER: Canvas + Ação Principal -->
-      <div class="center-panel">
-        <canvas id="game-canvas" width="800" height="620"></canvas>
-        
-        <div id="main-action">
-          <button id="attack-btn" class="primary-btn">⚔️ Atacar</button>
-          <button id="retry-btn" class="secondary-btn">🔄 Tentar Novamente</button>
-        </div>
-      </div>
-
-      <!-- RIGHT PANEL: Sistemas -->
-      <div class="side-panel">
-        <div class="tabs">
-          <button class="tab-btn active" data-tab="upgrades">Upgrades</button>
-          <button class="tab-btn" data-tab="forge">Forja</button>
-          <button class="tab-btn" data-tab="prestige">Prestige</button>
-        </div>
-
-        <div id="tab-upgrades" class="tab-content active">
-          <div id="upgrades-list"></div>
-        </div>
-
-        <div id="tab-forge" class="tab-content">
-          <div id="forge-list"></div>
-        </div>
-
-        <div id="tab-prestige" class="tab-content">
-          <button id="prestige-btn" class="primary-btn">Ascender</button>
-          <div id="prestige-info"></div>
+      <!-- RIGHT PANEL: Dinâmico -->
+      <div class="right-panel">
+        <div id="dynamic-panel">
+          <h3 id="panel-title">Informações</h3>
+          <div id="panel-content">
+            <p>Selecione uma região para começar.</p>
+          </div>
         </div>
       </div>
 
     </div>
 
-    <!-- BOTTOM BAR -->
-    <div id="bottom-bar">
-      <button class="nav-btn">Personagem</button>
-      <button class="nav-btn">Inventário</button>
-      <button class="nav-btn">Grimório</button>
-      <button class="nav-btn">Forja</button>
-      <button class="nav-btn">Torre</button>
-      <button class="nav-btn">Eventos</button>
-      <button class="nav-btn">Config</button>
+    <!-- BOTTOM NAVIGATION -->
+    <div id="bottom-nav">
+      <button class="nav-icon" data-panel="character">👤</button>
+      <button class="nav-icon" data-panel="inventory">🎒</button>
+      <button class="nav-icon" data-panel="grimoire">📖</button>
+      <button class="nav-icon" data-panel="forge">🔨</button>
+      <button class="nav-icon" data-panel="tower">🏰</button>
+      <button class="nav-icon" data-panel="events">🎉</button>
+      <button class="nav-icon" data-panel="guild">🛡️</button>
+      <button class="nav-icon" data-panel="settings">⚙️</button>
     </div>
 
   </div>

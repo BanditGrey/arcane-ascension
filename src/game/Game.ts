@@ -40,34 +40,34 @@ export class Game {
   }
 
   render() {
-    // Fundo mais clean para Idle RPG
-    this.ctx.fillStyle = '#0f0f25';
+    // Fundo mais imersivo
+    this.ctx.fillStyle = '#0d0d22';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // Grid sutil
+    // Chão com textura sutil
     this.ctx.strokeStyle = '#1a1a3a';
-    for (let x = 0; x < this.canvas.width; x += 50) {
+    for (let x = 0; x < this.canvas.width; x += 60) {
       this.ctx.beginPath();
       this.ctx.moveTo(x, 0);
       this.ctx.lineTo(x, this.canvas.height);
       this.ctx.stroke();
     }
-    for (let y = 0; y < this.canvas.height; y += 50) {
+    for (let y = 0; y < this.canvas.height; y += 60) {
       this.ctx.beginPath();
       this.ctx.moveTo(0, y);
       this.ctx.lineTo(this.canvas.width, y);
       this.ctx.stroke();
     }
 
-    // Desenha o mago no centro (estilo idle)
+    // Desenha o mago no centro
     this.player.render(this.ctx);
 
-    // Nome da fase atual
+    // Nome da fase
     const phase = phases.find(p => p.id === this.currentPhaseId);
     if (phase) {
       this.ctx.fillStyle = '#ffdd88';
-      this.ctx.font = 'bold 20px Arial';
-      this.ctx.fillText(phase.name, 50, 680);
+      this.ctx.font = 'bold 18px Arial';
+      this.ctx.fillText(phase.name, 40, 40);
     }
   }
 
