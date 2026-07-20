@@ -166,45 +166,53 @@ export class Player {
       ctx.drawImage(staffSprite, this.x + 14, this.y + bob - 48, 18, 55);
     }
 
-    // === EFEITOS ESPECIAIS PARA CAJADOS LENDÁRIOS E ACIMA ===
+    // === EFEITOS ESPECIAIS POR RARIDADE DO CAJADO ===
     const weapon = this.equipment.equipped.weapon;
     if (weapon) {
       const name = weapon.name.toLowerCase();
-      const isLegendary = weapon.rarity === 'Lendário' || weapon.rarity === 'Mítico' || weapon.rarity === 'Ancestral';
+      const rarity = weapon.rarity;
 
-      if (isLegendary) {
-        // === EFEITO VOID (Vazio) - Distorção + Partículas escuras ===
+      // === EFEITOS ANCESTRAIS (o mais épico) ===
+      if (rarity === 'Ancestral') {
         if (name.includes('vazio') || name.includes('void')) {
-          if (Math.random() < 0.6) {
-            this.particles.emit(this.x + 22, this.y - 25, 5, '#330066', 2.8);
-          }
-          if (Math.random() < 0.3) {
-            this.particles.emit(this.x + 20, this.y - 30, 3, '#110022', 1.5);
-          }
-        }
-
-        // === EFEITO CRYSTAL (Cristal) - Cristais flutuando ===
+          this.particles.emit(this.x + 22, this.y - 25, 7, '#220044', 3.5);
+          this.particles.emit(this.x + 20, this.y - 32, 4, '#110022', 2.2);
+        } 
         else if (name.includes('cristal') || name.includes('crystal')) {
-          if (Math.random() < 0.5) {
-            this.particles.emit(this.x + 25, this.y - 20, 3, '#ff99ff', 1.8);
-          }
-          if (Math.random() < 0.25) {
-            this.particles.emit(this.x + 18, this.y - 35, 2, '#cc66ff', 2.5);
-          }
-        }
-
-        // === EFEITO ARCANE ===
-        else if (name.includes('arcano') || name.includes('arcane')) {
-          if (Math.random() < 0.45) {
-            this.particles.emit(this.x + 22, this.y - 28, 4, '#bb88ff', 2.4);
-          }
-        }
-
-        // === EFEITO PADRÃO LENDÁRIO ===
+          this.particles.emit(this.x + 25, this.y - 22, 5, '#ff99ff', 2.8);
+          this.particles.emit(this.x + 18, this.y - 38, 3, '#cc66ff', 3.2);
+        } 
         else {
-          if (Math.random() < 0.35) {
-            this.particles.emit(this.x + 22, this.y - 26, 3, '#aaccff', 2.0);
-          }
+          this.particles.emit(this.x + 22, this.y - 26, 6, '#aaccff', 3.0);
+        }
+      }
+
+      // === EFEITOS MÍTICOS ===
+      else if (rarity === 'Mítico') {
+        if (name.includes('vazio') || name.includes('void')) {
+          if (Math.random() < 0.7) this.particles.emit(this.x + 22, this.y - 25, 6, '#330066', 3.2);
+        } 
+        else if (name.includes('cristal') || name.includes('crystal')) {
+          if (Math.random() < 0.6) this.particles.emit(this.x + 25, this.y - 22, 4, '#ff99ff', 2.5);
+        } 
+        else {
+          if (Math.random() < 0.5) this.particles.emit(this.x + 22, this.y - 26, 4, '#aaccff', 2.5);
+        }
+      }
+
+      // === EFEITOS LENDÁRIOS ===
+      else if (rarity === 'Lendário') {
+        if (name.includes('vazio') || name.includes('void')) {
+          if (Math.random() < 0.6) this.particles.emit(this.x + 22, this.y - 25, 5, '#330066', 2.8);
+        } 
+        else if (name.includes('cristal') || name.includes('crystal')) {
+          if (Math.random() < 0.5) this.particles.emit(this.x + 25, this.y - 20, 3, '#ff99ff', 1.8);
+        } 
+        else if (name.includes('arcano') || name.includes('arcane')) {
+          if (Math.random() < 0.45) this.particles.emit(this.x + 22, this.y - 28, 4, '#bb88ff', 2.4);
+        } 
+        else {
+          if (Math.random() < 0.35) this.particles.emit(this.x + 22, this.y - 26, 3, '#aaccff', 2.0);
         }
       }
     }
