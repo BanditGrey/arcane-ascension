@@ -36,6 +36,17 @@ export const appearanceStages: AppearanceBonus[] = [
       "mana regen": 6,
       "crit chance": 7
     }
+  },
+  {
+    level: 90,
+    name: "Lenda Arcana",
+    bonuses: {
+      "spell damage": 28,
+      mana: 25,
+      "mana regen": 12,
+      "crit chance": 12,
+      "crit damage": 20
+    }
   }
 ];
 

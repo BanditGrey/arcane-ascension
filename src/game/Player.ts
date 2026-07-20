@@ -21,6 +21,10 @@ export class Player {
   level: number = 1;
   experience: number = 0;
 
+  // Bônus de Aparência
+  spellDamageMultiplier: number = 1;
+  intelligence: number = 0;
+
   inventory = new Inventory();
   proficiencies = new ProficiencySystem();
   specialization = new SpecializationSystem();
@@ -84,6 +88,9 @@ export class Player {
     this.lastSpellTime[spell.id] = now;
     this.state = 'cast';
 
+    // Aplica bônus de dano da aparência
+    const finalDamage = Math.floor(spell.damage * (this.spellDamageMultiplier || 1));
+
     // === EFEITO DE CAST BASEADO NO CAJADO ===
     const weapon = this.equipment.equipped.weapon;
     let castColor = spell.projectileColor;
@@ -105,7 +112,7 @@ export class Player {
     // Efeito visual de cast
     this.particles.emit(this.x, this.y - 10, intensity, castColor, 5);
 
-    return { targetX, targetY, spell };
+    return { targetX, targetY, spell, finalDamage };
   }
 
   switchSpell(spellId: string) {
@@ -170,6 +177,28 @@ export class Player {
   // Retorna os bônus permanentes da aparência atual
   getAppearanceBonuses() {
     return this.appearance.getTotalBonuses(this.level);
+  }
+
+  // Aplica bônus da aparência nos status base
+  applyAppearanceBonuses() {
+    const bonuses = this.getAppearanceBonuses();
+
+    // Dano mágico
+    if (bonuses['spell damage']) {
+      // Vamos usar um multiplicador simples
+      this.spellDamageMultiplier = 1 + (bonuses['spell damage'] / 100);
+    }
+
+    // Mana máxima
+    if (bonuses.mana) {
+      const bonusMana = bonuses.mana;
+      this.maxMana = 220 + bonusMana;
+    }
+
+    // Inteligência (afeta dano)
+    if (bonuses.intelligence) {
+      this.intelligence = bonuses.intelligence;
+    }
   }
 
   render(ctx: CanvasRenderingContext2D) {
