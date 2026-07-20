@@ -125,7 +125,7 @@ export class Player {
 
     const staffData = testStaffs[staffId];
     if (staffData) {
-      this.equipment.equip(staffData);
+      this.equipment.equip(staffData, 'weapon');
       console.log(`%c[Cajado] Equipado: ${staffData.name}`, 'color:#ffaa33');
 
       // Efeito visual ao equipar
