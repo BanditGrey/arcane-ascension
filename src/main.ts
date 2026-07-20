@@ -1,6 +1,7 @@
 import { Game } from './game/Game';
 import { UIManager } from './ui/UIManager';
 import { IdleGame } from './game/IdleGame';
+import { phases } from './systems/PhaseSystem';
 
 window.addEventListener('load', async () => {
   const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
@@ -26,15 +27,44 @@ window.addEventListener('load', async () => {
 
   // Botões Idle
   const attackBtn = document.getElementById('attack-btn')!;
-  const phaseBtn = document.getElementById('phase-btn')!;
   const retryBtn = document.getElementById('retry-btn')!;
 
   attackBtn.onclick = () => idleGame.attack(true);
   retryBtn.onclick = () => idleGame.startPhase(idleGame.currentPhase);
-  phaseBtn.onclick = () => {
-    const phase = prompt("Digite o número da fase (1-5):");
-    if (phase) idleGame.startPhase(parseInt(phase));
-  };
+
+  // Sistema de Abas
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      btn.classList.add('active');
+      const tab = btn.getAttribute('data-tab')!;
+      document.getElementById(`tab-${tab}`)!.classList.add('active');
+    });
+  });
+
+  // Gerar lista de fases
+  function renderPhases() {
+    const container = document.getElementById('phase-list')!;
+    container.innerHTML = '';
+
+    phases.forEach(phase => {
+      const btn = document.createElement('button');
+      btn.innerHTML = `
+        <strong>${phase.name}</strong><br>
+        <small>Nível ${phase.levelReq} • ${phase.enemyCount} inimigos</small>
+      `;
+      btn.onclick = () => {
+        if (idleGame.startPhase(phase.id)) {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        }
+      };
+      container.appendChild(btn);
+    });
+  }
+  renderPhases();
 
   // HUD Loop
   setInterval(() => {

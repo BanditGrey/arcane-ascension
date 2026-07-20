@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arcane Ascension - Idle</title>
+  <title>Arcane Ascension - Idle RPG</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -11,40 +11,58 @@
     <!-- Canvas Principal -->
     <canvas id="game-canvas" width="1280" height="720"></canvas>
     
-    <!-- HUD Overlay -->
-    <div id="hud">
-      <div id="player-info">
-        <div class="stat">
-          <span>HP: <span id="hp">100</span>/<span id="max-hp">100</span></span>
-        </div>
-        <div class="stat">
-          <span>MP: <span id="mp">200</span>/<span id="max-mp">200</span></span>
-        </div>
-        <div class="stat">
-          <span>Nível: <span id="level">1</span></span>
-        </div>
-        <div class="stat" style="font-size: 12px; color: #aaccff;">
-          <span id="appearance-bonus"></span>
-        </div>
+    <!-- HUD Top -->
+    <div id="hud-top">
+      <div class="stat">Nível <span id="level">1</span></div>
+      <div class="stat">HP <span id="hp">120</span></div>
+      <div class="stat">Mana <span id="mp">220</span></div>
+      <div class="stat" id="appearance-bonus"></div>
+    </div>
+
+    <!-- Menu Idle Style -->
+    <div id="idle-menu">
+      <div class="menu-tabs">
+        <button class="tab-btn active" data-tab="phases">Fases</button>
+        <button class="tab-btn" data-tab="upgrades">Upgrades</button>
+        <button class="tab-btn" data-tab="inventory">Inventário</button>
+        <button class="tab-btn" data-tab="prestige">Prestige</button>
       </div>
-      
-      <!-- Idle Controls -->
-      <div id="idle-controls">
-        <button id="attack-btn">⚔️ Atacar</button>
-        <button id="phase-btn">🗺️ Selecionar Fase</button>
-        <button id="retry-btn">🔄 Tentar Novamente</button>
+
+      <!-- Conteúdo das abas -->
+      <div id="tab-content">
+        <!-- Fases -->
+        <div id="tab-phases" class="tab-content active">
+          <h3>Selecionar Fase</h3>
+          <div id="phase-list"></div>
+          <button id="retry-btn">Tentar Fase Atual Novamente</button>
+        </div>
+
+        <!-- Upgrades -->
+        <div id="tab-upgrades" class="tab-content">
+          <h3>Upgrades</h3>
+          <p>Em breve...</p>
+        </div>
+
+        <!-- Inventário -->
+        <div id="tab-inventory" class="tab-content">
+          <h3>Inventário</h3>
+          <div id="inventory-grid"></div>
+        </div>
+
+        <!-- Prestige -->
+        <div id="tab-prestige" class="tab-content">
+          <h3>Prestige</h3>
+          <p>Em breve...</p>
+        </div>
       </div>
     </div>
-    
-    <!-- Painéis laterais -->
-    <div id="sidebar">
-      <div id="inventory-panel" class="panel">
-        <h3>Inventário</h3>
-        <div id="inventory-grid"></div>
-      </div>
+
+    <!-- Botão de Ataque Principal -->
+    <div id="main-attack">
+      <button id="attack-btn">⚔️ Atacar</button>
     </div>
   </div>
-  
+
   <script type="module" src="src/main.ts"></script>
 </body>
 </html>
