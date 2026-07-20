@@ -94,31 +94,42 @@ export class Player {
     }
   }
 
-  render(ctx: CanvasRenderingContext2D) {
-    const mageIdle = AssetLoader.get('/assets/sprites/Mage/archmage_idle_front.png');
-    const mageWalk = AssetLoader.get('/assets/sprites/Mage/archmage_walk_side.png');
-    const mageCast = AssetLoader.get('/assets/sprites/Mage/archmage_cast_front.png');
+  // Sistema de evolução visual do mago por nível
+  getMageSprite() {
+    const level = this.level;
 
-    // Aura mágica
+    if (level >= 60) {
+      return AssetLoader.get('/assets/sprites/Mage/mage_elder.png');      // Ancião lendário
+    } else if (level >= 35) {
+      return AssetLoader.get('/assets/sprites/Mage/mage_veteran.png');   // Veterano
+    } else if (level >= 15) {
+      return AssetLoader.get('/assets/sprites/Mage/mage_adult.png');     // Adulto
+    } else {
+      return AssetLoader.get('/assets/sprites/Mage/mage_young.png');     // Jovem Aprendiz
+    }
+  }
+
+  render(ctx: CanvasRenderingContext2D) {
+    const currentSprite = this.getMageSprite();
+
+    // Aura mágica (fica mais forte com o nível)
+    const auraSize = 30 + Math.min(this.level * 0.4, 25);
     ctx.save();
     ctx.shadowColor = '#6644ff';
-    ctx.shadowBlur = 22;
-    ctx.fillStyle = 'rgba(102, 68, 255, 0.3)';
+    ctx.shadowBlur = 18 + Math.min(this.level / 4, 15);
+    ctx.fillStyle = 'rgba(102, 68, 255, 0.35)';
     ctx.beginPath();
-    ctx.arc(this.x, this.y - 8, 34, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y - 8, auraSize, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
     const bob = this.state === 'walk' ? Math.sin(this.animationFrame * 0.6) * 2.5 : 0;
 
-    // Desenha sprite real do mago
-    if (this.state === 'cast' && mageCast) {
-      ctx.drawImage(mageCast, this.x - 28, this.y + bob - 42, 56, 72);
-    } else if (this.state === 'walk' && mageWalk) {
-      ctx.drawImage(mageWalk, this.x - 28, this.y + bob - 42, 56, 72);
-    } else if (mageIdle) {
-      ctx.drawImage(mageIdle, this.x - 28, this.y + bob - 42, 56, 72);
+    // Desenha o sprite de acordo com o nível do mago
+    if (currentSprite) {
+      ctx.drawImage(currentSprite, this.x - 30, this.y + bob - 45, 60, 78);
     } else {
+      // Fallback
       ctx.fillStyle = '#3a1a7a';
       ctx.beginPath();
       ctx.arc(this.x, this.y + bob, 23, 0, Math.PI * 2);
