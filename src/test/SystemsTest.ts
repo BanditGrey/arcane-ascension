@@ -42,7 +42,7 @@ console.log("✓ Equipment - Stats:", eq.getTotalStats());
 
 // 5. Progression
 const prog = new ProgressionSystem();
-console.log("✓ Progression - Pode Prestige?", prog.canPrestige(50));
+console.log("✓ Progression - Ascension Level:", prog.ascensionLevel);
 
 // 6. Spell
 const spellSys = new SpellSystem();
