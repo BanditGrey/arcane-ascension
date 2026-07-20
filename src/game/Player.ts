@@ -1,4 +1,3 @@
-import { InputManager } from './InputManager';
 import { spells } from '../data/spells';
 import { Inventory } from '../systems/Inventory';
 import { ProficiencySystem } from '../systems/ProficiencySystem';
@@ -54,30 +53,14 @@ export class Player {
     });
   }
 
-  update(delta: number, input: InputManager) {
-    let dx = 0, dy = 0;
-    let moving = false;
-
-    if (input.keys['w'] || input.keys['W']) { dy -= 1; moving = true; }
-    if (input.keys['s'] || input.keys['S']) { dy += 1; moving = true; }
-    if (input.keys['a'] || input.keys['A']) { dx -= 1; moving = true; }
-    if (input.keys['d'] || input.keys['D']) { dx += 1; moving = true; }
-
-    if (dx !== 0 && dy !== 0) { dx *= 0.707; dy *= 0.707; }
-
-    this.x += dx * this.speed;
-    this.y += dy * this.speed;
-
-    this.x = Math.max(20, Math.min(1260, this.x));
-    this.y = Math.max(20, Math.min(700, this.y));
-
-    // Estado de animação
-    this.state = moving ? 'walk' : 'idle';
+  update(delta: number) {
+    // Idle mode - mago fica parado no centro
+    this.state = 'idle';
     this.animationFrame = (this.animationFrame + 1) % 12;
 
-    // Aura de partículas constante
-    if (Math.random() < 0.4) {
-      this.particles.emit(this.x, this.y - 15, 1, '#6644ff', 1.5);
+    // Aura de partículas constante (mais idle)
+    if (Math.random() < 0.35) {
+      this.particles.emit(this.x, this.y - 15, 1, '#6644ff', 1.2);
     }
     this.particles.update();
   }
