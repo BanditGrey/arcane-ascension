@@ -24,9 +24,12 @@ export class Enemy {
 
   render(ctx: CanvasRenderingContext2D) {
     const goblin = AssetLoader.get('/assets/sprites/Enemies/goblin_mage.png');
+    const skeleton = AssetLoader.get('/assets/sprites/Enemies/skeleton_mage.png');
 
-    if (goblin) {
-      ctx.drawImage(goblin, this.x - 24, this.y - 28, 48, 56);
+    const sprite = Math.random() > 0.6 ? skeleton : goblin;
+
+    if (sprite) {
+      ctx.drawImage(sprite, this.x - 26, this.y - 30, 52, 60);
     } else {
       ctx.fillStyle = '#aa3344';
       ctx.beginPath();

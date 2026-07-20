@@ -97,6 +97,7 @@ export class Player {
   render(ctx: CanvasRenderingContext2D) {
     const mageIdle = AssetLoader.get('/assets/sprites/Mage/archmage_idle_front.png');
     const mageWalk = AssetLoader.get('/assets/sprites/Mage/archmage_walk_side.png');
+    const mageCast = AssetLoader.get('/assets/sprites/Mage/archmage_cast_front.png');
 
     // Aura mágica
     ctx.save();
@@ -111,12 +112,13 @@ export class Player {
     const bob = this.state === 'walk' ? Math.sin(this.animationFrame * 0.6) * 2.5 : 0;
 
     // Desenha sprite real do mago
-    if (this.state === 'walk' && mageWalk) {
+    if (this.state === 'cast' && mageCast) {
+      ctx.drawImage(mageCast, this.x - 28, this.y + bob - 42, 56, 72);
+    } else if (this.state === 'walk' && mageWalk) {
       ctx.drawImage(mageWalk, this.x - 28, this.y + bob - 42, 56, 72);
     } else if (mageIdle) {
       ctx.drawImage(mageIdle, this.x - 28, this.y + bob - 42, 56, 72);
     } else {
-      // Fallback (caso imagem não carregue)
       ctx.fillStyle = '#3a1a7a';
       ctx.beginPath();
       ctx.arc(this.x, this.y + bob, 23, 0, Math.PI * 2);

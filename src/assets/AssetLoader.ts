@@ -23,12 +23,19 @@ export class AssetLoader {
     const manifest = [
       '/assets/sprites/Mage/archmage_idle_front.png',
       '/assets/sprites/Mage/archmage_walk_side.png',
+      '/assets/sprites/Mage/archmage_cast_front.png',
       '/assets/sprites/Projectiles/fireball.png',
+      '/assets/sprites/Projectiles/icebolt.png',
+      '/assets/sprites/Projectiles/lightning.png',
+      '/assets/sprites/Projectiles/shadow_bolt.png',
       '/assets/sprites/Enemies/goblin_mage.png',
+      '/assets/sprites/Enemies/skeleton_mage.png',
       '/assets/sprites/Effects/explosion_fire.png',
+      '/assets/sprites/Effects/impact_ice.png',
+      '/assets/sprites/Effects/aura_arcane.png',
     ];
     
     await Promise.all(manifest.map(p => this.load(p)));
-    console.log('%c[Assets] Sprites reais carregados com sucesso!', 'color:#44ffaa');
+    console.log('%c[Assets] Todos os sprites reais carregados!', 'color:#44ffaa');
   }
 }
