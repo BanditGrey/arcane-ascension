@@ -1,3 +1,5 @@
+import { EventBus } from '../core/EventBus';
+
 export class ProficiencySystem {
   proficiencies: Record<string, number> = {
     'Fire Magic': 1,
@@ -8,13 +10,12 @@ export class ProficiencySystem {
     'Mana Control': 1,
   };
 
-  gainProficiency(skill: string, amount: number = 0.3) {
+  gain(skill: string, amount: number = 0.4) {
     if (!this.proficiencies[skill]) this.proficiencies[skill] = 1;
     this.proficiencies[skill] += amount;
 
-    // Auto level up bonuses
-    if (this.proficiencies[skill] % 10 === 0) {
-      console.log(`[Proficiência] ${skill} subiu para nível ${Math.floor(this.proficiencies[skill])}!`);
+    if (Math.floor(this.proficiencies[skill]) % 10 === 0) {
+      EventBus.emit('proficiency:level_up', { skill, level: Math.floor(this.proficiencies[skill]) });
     }
   }
 
