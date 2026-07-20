@@ -5,15 +5,16 @@ export interface Region {
   name: string;
   levelReq: number;
   unlocked: boolean;
+  description: string;
 }
 
 export class MapSystem {
   regions: Region[] = [
-    { id: 'forest', name: 'Floresta Arcana', levelReq: 1, unlocked: true },
-    { id: 'crystal_cave', name: 'Caverna Cristalina', levelReq: 10, unlocked: false },
-    { id: 'volcano', name: 'Vulcão Flamejante', levelReq: 25, unlocked: false },
-    { id: 'abyss', name: 'Abismo Sombrio', levelReq: 45, unlocked: false },
-    { id: 'celestial', name: 'Reino Celestial', levelReq: 70, unlocked: false },
+    { id: 'forest', name: 'Floresta Arcana', levelReq: 1, unlocked: true, description: 'Uma floresta encantada.' },
+    { id: 'crystal', name: 'Caverna Cristalina', levelReq: 10, unlocked: false, description: 'Cristais de poder.' },
+    { id: 'volcano', name: 'Vulcão Flamejante', levelReq: 25, unlocked: false, description: 'Fogo e destruição.' },
+    { id: 'abyss', name: 'Abismo Sombrio', levelReq: 45, unlocked: false, description: 'Trevas antigas.' },
+    { id: 'celestial', name: 'Reino Celestial', levelReq: 70, unlocked: false, description: 'Poder divino.' },
   ];
 
   unlockRegion(regionId: string) {

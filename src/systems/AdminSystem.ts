@@ -1,7 +1,7 @@
 export class AdminSystem {
   isAdmin: boolean = false;
 
-  enableAdmin() {
+  enableAdminMode() {
     this.isAdmin = true;
     console.log('%c[Admin] Modo Administrador ativado', 'color:#ff5555');
   }
