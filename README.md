@@ -4,6 +4,25 @@
 
 Jogo profundo inspirado em Path of Exile, Diablo e Last Epoch — mas 100% centrado na evolução mágica.
 
+---
+
+### 🎮 **Jogue Agora**
+
+[![Play Now](https://img.shields.io/badge/Play%20Now-FF6B35?style=for-the-badge&logo=gamepad&logoColor=white)](https://banditgrey.github.io/arcane-ascension/)
+
+---
+
+### ✨ Principais Funcionalidades
+
+- Evolução visual do mago (4 estágios de aparência)
+- Sistema de cajados dinâmicos com efeitos visuais
+- Bônus permanentes por estágio de evolução
+- 8 tipos de cajados diferentes
+- Sistema de proficiências e especializações
+- Torre Infinita
+
+---
+
 ## ✅ O que já foi implementado
 
 - Sistema de movimento WASD fluido
