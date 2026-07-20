@@ -36,9 +36,6 @@ export class Player {
   appearance = new AppearanceSystem();
   offline = new OfflineProgress();
   phases = new PhaseSystem();
-  forge = new (await import('../systems/ForgeSystem')).ForgeSystem();
-  upgrades = new (await import('../systems/UpgradeSystem')).UpgradeSystem();
-  prestige = new (await import('../systems/PrestigeSystem')).PrestigeSystem();
 
   lastSpellTime: Record<string, number> = {};
   animationFrame: number = 0;

@@ -2,6 +2,9 @@ import { Game } from './game/Game';
 import { UIManager } from './ui/UIManager';
 import { IdleGame } from './game/IdleGame';
 import { phases } from './systems/PhaseSystem';
+import { UpgradeSystem } from './systems/UpgradeSystem';
+import { ForgeSystem, forgeRecipes } from './systems/ForgeSystem';
+import { PrestigeSystem } from './systems/PrestigeSystem';
 
 window.addEventListener('load', async () => {
   const canvas = document.getElementById('game-canvas') as HTMLCanvasElement;
@@ -14,18 +17,14 @@ window.addEventListener('load', async () => {
   const idleGame = new IdleGame(game.player);
 
   game.start();
-
-  // Inicia fase padrão
   idleGame.startPhase(1);
 
-  // Auto attack
   setInterval(() => {
     if (idleGame.isRunning) {
       idleGame.attack(false);
     }
   }, 900);
 
-  // Botões Idle
   const attackBtn = document.getElementById('attack-btn')!;
   const retryBtn = document.getElementById('retry-btn')!;
 
@@ -72,7 +71,7 @@ window.addEventListener('load', async () => {
     const container = document.getElementById('upgrades-list')!;
     container.innerHTML = '';
 
-    upgradeSystem.upgrades.forEach(upgrade => {
+    upgradeSystem.upgrades.forEach((upgrade: any) => {
       const div = document.createElement('div');
       div.innerHTML = `
         <strong>${upgrade.name}</strong> (Lv.${upgrade.level})<br>
@@ -94,7 +93,7 @@ window.addEventListener('load', async () => {
     const container = document.getElementById('forge-list')!;
     container.innerHTML = '';
 
-    forgeRecipes.forEach(recipe => {
+    forgeRecipes.forEach((recipe: any) => {
       const div = document.createElement('div');
       div.innerHTML = `
         <strong>${recipe.name}</strong><br>
@@ -122,25 +121,12 @@ window.addEventListener('load', async () => {
     }
   };
 
-  // Sistema de Abas
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
-      btn.classList.add('active');
-      const tab = btn.getAttribute('data-tab')!;
-      document.getElementById(`tab-${tab}`)!.classList.add('active');
-    });
-  });
-
   // HUD Loop
   setInterval(() => {
     UIManager.updateHUD(game.player);
     UIManager.showInventory(game.player.inventory);
   }, 120);
 
-  // Loot Offline ao carregar
   setTimeout(() => {
     idleGame.loadOfflineProgress();
   }, 2000);
