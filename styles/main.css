@@ -78,6 +78,29 @@ body {
   transform: translateY(-1px);
 }
 
+/* Idle Controls */
+#idle-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+#idle-controls button {
+  padding: 10px 18px;
+  background: #334466;
+  color: #fff;
+  border: 2px solid #556688;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+#idle-controls button:hover {
+  background: #445577;
+  border-color: #88aaff;
+}
+
 #sidebar {
   position: absolute;
   right: 0;

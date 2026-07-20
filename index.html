@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arcane Ascension</title>
+  <title>Arcane Ascension - Idle</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -28,13 +28,15 @@
         </div>
       </div>
       
-      <div id="action-bar">
-        <button class="spell-btn" data-spell="fireball">🔥 Bola de Fogo</button>
-        <button class="spell-btn" data-spell="icebolt">❄️ Raio de Gelo</button>
+      <!-- Idle Controls -->
+      <div id="idle-controls">
+        <button id="attack-btn">⚔️ Atacar</button>
+        <button id="phase-btn">🗺️ Selecionar Fase</button>
+        <button id="retry-btn">🔄 Tentar Novamente</button>
       </div>
     </div>
     
-    <!-- Painéis laterais (serão expandidos) -->
+    <!-- Painéis laterais -->
     <div id="sidebar">
       <div id="inventory-panel" class="panel">
         <h3>Inventário</h3>
