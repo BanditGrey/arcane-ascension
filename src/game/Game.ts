@@ -41,11 +41,17 @@ export class Game {
     window.addEventListener('keydown', (e) => {
       this.input.onKeyDown(e);
       
-      // Hotbar
+      // Hotbar de Magias
       if (e.key === '1') this.player.switchSpell('fireball');
       if (e.key === '2') this.player.switchSpell('icebolt');
       if (e.key === '3') this.player.switchSpell('lightning');
       if (e.key === '4') this.player.switchSpell('shadow_bolt');
+
+      // Equipamento de Cajados (teste)
+      if (e.key === '5') this.player.equipStaff('staff_basic');
+      if (e.key === '6') this.player.equipStaff('staff_fire');
+      if (e.key === '7') this.player.equipStaff('staff_arcane');
+      if (e.key === '8') this.player.equipStaff('staff_void');
       
       // Save / Load
       if (e.key.toLowerCase() === 'k') SaveSystem.save(this.player);
