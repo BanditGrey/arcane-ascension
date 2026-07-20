@@ -7,6 +7,7 @@ import { ParticleSystem } from '../vfx/ParticleSystem';
 import { SkillTree } from '../systems/SkillTree';
 import { EquipmentSystem } from '../systems/EquipmentSystem';
 import { AssetLoader } from '../assets/AssetLoader';
+import { StaffRenderer } from './StaffRenderer';
 
 export class Player {
   x: number = 400;
@@ -134,6 +135,12 @@ export class Player {
       ctx.beginPath();
       ctx.arc(this.x, this.y + bob, 23, 0, Math.PI * 2);
       ctx.fill();
+    }
+
+    // === DESENHA O CAJADO DINÂMICO ===
+    const staffSprite = StaffRenderer.getStaffSprite(this.equipment);
+    if (staffSprite) {
+      ctx.drawImage(staffSprite, this.x + 14, this.y + bob - 48, 18, 55);
     }
 
     // Partículas

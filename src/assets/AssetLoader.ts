@@ -46,6 +46,12 @@ export class AssetLoader {
       '/assets/sprites/Effects/explosion_fire.png',
       '/assets/sprites/Effects/impact_ice.png',
       '/assets/sprites/Effects/aura_arcane.png',
+
+      // Cajados
+      '/assets/sprites/Weapons/staff_basic.png',
+      '/assets/sprites/Weapons/staff_fire.png',
+      '/assets/sprites/Weapons/staff_arcane.png',
+      '/assets/sprites/Weapons/staff_void.png',
     ];
     
     await Promise.all(manifest.map(p => this.load(p)));
